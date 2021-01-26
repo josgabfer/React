@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import styles from './ComponenteNormal.module.css'
+// import styles from './ComponenteNormal.module.css'
 import Boton from './../elementos/Boton';
 
 const ModificarContador = (props) => {
