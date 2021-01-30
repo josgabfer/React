@@ -8,7 +8,6 @@ const Usuario = () => {
     const amigos = ['Alejandro', 'Manuel', 'Cesar'];
     return (
       <div>
-        <Titulo/>
         <Titulo usuario="Carlos" color="red"/>
       <Parrafo>Que tengas un buen dia</Parrafo>
       {pais &&<p>Tu eres de: {pais}</p>}
