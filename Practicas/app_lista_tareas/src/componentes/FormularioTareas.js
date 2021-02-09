@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {v4 as uuidv4} from 'uuid';
 import {FontAwesomeIcon} from  '@fortawesome/react-fontawesome';
 import {faPlusSquare} from '@fortawesome/free-solid-svg-icons';
 
 
 const FormularioTareas = ({tareas, cambiarTareas}) => {
+    const [inputTarea, cambiarInputTarea] = useState('');
 
+    const handleInput =(e) => {
+        cambiarInputTarea(e.target.value);
+    }
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -13,8 +18,8 @@ const FormularioTareas = ({tareas, cambiarTareas}) => {
 			[
 				...tareas, 
 				{
-                    id:3, 
-                    texto:'Nueva tarea',
+                    id:uuidv4(), 
+                    texto:inputTarea,
                     completada: false
 				}
 			]
@@ -27,6 +32,8 @@ const FormularioTareas = ({tareas, cambiarTareas}) => {
             type="text"
             className="formulario-tareas__input"
             placeholder="Escribe una tarea"
+            value={inputTarea}
+            onChange={(e) => handleInput(e)}
             />
                 <button 
                 type="submit"
