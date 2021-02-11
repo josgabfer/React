@@ -1,34 +1,37 @@
 import React from 'react'
-import {BrowserRouter, Route,Link} from 'react-router-dom';
+import styled from 'styled-components';
+import {BrowserRouter, Route} from 'react-router-dom';
 import Header from './componentes/Header';
 import Blog from './componentes/Blog';
-import Acerca_de from './componentes/Acerca_de';
+import AcercaDe from './componentes/AcercaDe';
+import Inicio from './componentes/Inicio';
 
 const App = () => {
   return (
     <BrowserRouter>
-      <div>
+      <ContenedorPrincipal>
         <Header/>
-
-        <main>
-          <Route path="/" exact={true}>
-            <div>
-              <h2>Pagina de inicio</h2>
-              <p>Esta es la pagina principal de nuestro sitio</p>
-            </div>
-          </Route>
-
-          <Route path="/blog">
-            <Blog/>
-          </Route>
-
-          <Route path="/acerca-de">
-            <Acerca_de/>
-          </Route>
-        </main>
-    </div>
+        <Main>
+          <Route path="/" exact={true} component={Inicio}/>
+          <Route path="/blog" component={Blog}/>
+          <Route path="/acerca-de" component={AcercaDe}/>
+        </Main>
+    </ContenedorPrincipal>
     </BrowserRouter>
   );
 };
+
+const ContenedorPrincipal = styled.div`
+  padding: 40px;
+  width: 90%
+  max-width: 700px;
+`;
+const Main = styled.main`
+  background: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px rgba(129, 129, 129, 0.1);
+`;
+
 
 export default App;

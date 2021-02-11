@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Acerca_de = () => {
+const AcercaDe = () => {
     return (
         <div>
             <h2>Acerca de</h2>
@@ -9,4 +9,4 @@ const Acerca_de = () => {
     );
 };
 
-export default Acerca_de;
+export default AcercaDe;
