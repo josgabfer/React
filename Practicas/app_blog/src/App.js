@@ -5,6 +5,7 @@ import Header from './componentes/Header';
 import Blog from './componentes/Blog';
 import AcercaDe from './componentes/AcercaDe';
 import Inicio from './componentes/Inicio';
+import Post from './componentes/Post';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Main>
           <Route path="/" exact={true} component={Inicio}/>
           <Route path="/blog" component={Blog}/>
+          <Route path="/post/:id" component={Post}/>
           <Route path="/acerca-de" component={AcercaDe}/>
         </Main>
     </ContenedorPrincipal>
