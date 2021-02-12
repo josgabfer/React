@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import {NavLink, Switch, Route} from 'react-router-dom';
 import Inicio from './componentes/Inicio';
 import Blog from './componentes/Blog';
 import Tienda from './componentes/Tienda';
 import Error404 from './componentes/Error404';
-
+import Carrito from './componentes/Carrito';
 const productos = [
   {id: 1, nombre: 'Producto 1'},
   {id: 2, nombre: 'Producto 2'},
@@ -15,6 +15,7 @@ const productos = [
 
 
 const App = () => {
+  const [carrito, cambiarCarrito] = useState([]);
   return (
     <Contenedor>
       <Menu>
@@ -33,7 +34,7 @@ const App = () => {
         </Switch>
       </main>
       <aside>
-        <h3>Sidebar</h3>
+        <Carrito carrito={carrito}/>
       </aside>
     </Contenedor>
   );
