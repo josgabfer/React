@@ -16,6 +16,33 @@ const productos = [
 
 const App = () => {
   const [carrito, cambiarCarrito] = useState([]);
+
+  const agregarProductoAlCarrito = (idProductoAAgregar, nombre) => {
+    if(carrito.length === 0){
+      cambiarCarrito([{id:idProductoAAgregar, nombre: nombre, cantidad:1}])
+    }else{
+      //Para poder editar el arreglo tenemos que clonarlo
+      const nuevoCarrito = [...carrito];
+      // Comprobar si el carrito ya tiene el id del producto a agregar
+      const yaEstaEnCarrito = nuevoCarrito.filter((productoDeCarrito) => {
+        return productoDeCarrito.id === idProductoAAgregar 
+      }).length > 0;
+
+      if(yaEstaEnCarrito){
+        nuevoCarrito.forEach((productoDeCarrito, index) => {
+          if(productoDeCarrito.id === idProductoAAgregar){
+            const cantidad = nuevoCarrito[index].cantidad;
+            nuevoCarrito[index] = {id: idProductoAAgregar, nombre: nombre, cantidad: cantidad + 1}
+          }
+        });
+      }else{
+        nuevoCarrito.push(
+          {id: idProductoAAgregar, nombre: nombre, cantidad: 1}
+        )
+      }
+      cambiarCarrito(nuevoCarrito);
+    }
+  }
   return (
     <Contenedor>
       <Menu>
@@ -28,7 +55,10 @@ const App = () => {
           <Route path="/" exact={true} component={Inicio}/>
           <Route path="/blog" component={Blog}/>
           <Route path="/tienda">
-            <Tienda productos={productos}/>
+            <Tienda 
+              productos={productos}
+              agregarProductoAlCarrito={agregarProductoAlCarrito}
+            />
           </Route>
           <Route component={Error404}/>
         </Switch>
