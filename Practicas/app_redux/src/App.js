@@ -6,16 +6,13 @@ import Blog from './componentes/Blog';
 import Tienda from './componentes/Tienda';
 import Error404 from './componentes/Error404';
 import Carrito from './componentes/Carrito';
-const productos = [
-  {id: 1, nombre: 'Producto 1'},
-  {id: 2, nombre: 'Producto 2'},
-  {id: 3, nombre: 'Producto 3'},
-  {id: 4, nombre: 'Producto 4'}
-];
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+import reducer from './reducers/tiendaReducer';
+
 
 
 const App = () => {
-  const [carrito, cambiarCarrito] = useState([]);
 
   const agregarProductoAlCarrito = (idProductoAAgregar, nombre) => {
     if(carrito.length === 0){
@@ -43,30 +40,31 @@ const App = () => {
       cambiarCarrito(nuevoCarrito);
     }
   }
+// El reducer es una funcion que edita el estado global
+  const store = createStore(reducer);
+  
   return (
+  <Provider store={store}>
     <Contenedor>
-      <Menu>
-        <NavLink to="/">Inicio</NavLink>
-        <NavLink to="/blog">Blog</NavLink>
-        <NavLink to="/tienda">Tienda</NavLink>
-      </Menu>
-      <main>
-        <Switch>
-          <Route path="/" exact={true} component={Inicio}/>
-          <Route path="/blog" component={Blog}/>
-          <Route path="/tienda">
-            <Tienda 
-              productos={productos}
-              agregarProductoAlCarrito={agregarProductoAlCarrito}
-            />
-          </Route>
-          <Route component={Error404}/>
-        </Switch>
-      </main>
-      <aside>
-        <Carrito carrito={carrito}/>
-      </aside>
-    </Contenedor>
+          <Menu>
+            <NavLink to="/">Inicio</NavLink>
+            <NavLink to="/blog">Blog</NavLink>
+            <NavLink to="/tienda">Tienda</NavLink>
+          </Menu>
+          <main>
+            <Switch>
+              <Route path="/" exact={true} component={Inicio}/>
+              <Route path="/blog" component={Blog}/>
+              <Route path="/tienda" component={Tienda}/>
+              <Route component={Error404}/>
+            </Switch>
+          </main>
+          <aside>
+            <Carrito/>
+          </aside>
+        </Contenedor>
+  </Provider>  
+    
   );
 };
 const Contenedor = styled.div`
