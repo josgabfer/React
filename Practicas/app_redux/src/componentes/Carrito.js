@@ -40,4 +40,4 @@ const mapStateToProps = (estado) => {
         carrito: estado.carrito
     }
 }
-export default conenct(mapStateToProps)(Carrito);
+export default connect(mapStateToProps)(Carrito);

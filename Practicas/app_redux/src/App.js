@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {NavLink, Switch, Route} from 'react-router-dom';
 import Inicio from './componentes/Inicio';
@@ -13,33 +13,6 @@ import reducer from './reducers/tiendaReducer';
 
 
 const App = () => {
-
-  const agregarProductoAlCarrito = (idProductoAAgregar, nombre) => {
-    if(carrito.length === 0){
-      cambiarCarrito([{id:idProductoAAgregar, nombre: nombre, cantidad:1}])
-    }else{
-      //Para poder editar el arreglo tenemos que clonarlo
-      const nuevoCarrito = [...carrito];
-      // Comprobar si el carrito ya tiene el id del producto a agregar
-      const yaEstaEnCarrito = nuevoCarrito.filter((productoDeCarrito) => {
-        return productoDeCarrito.id === idProductoAAgregar 
-      }).length > 0;
-
-      if(yaEstaEnCarrito){
-        nuevoCarrito.forEach((productoDeCarrito, index) => {
-          if(productoDeCarrito.id === idProductoAAgregar){
-            const cantidad = nuevoCarrito[index].cantidad;
-            nuevoCarrito[index] = {id: idProductoAAgregar, nombre: nombre, cantidad: cantidad + 1}
-          }
-        });
-      }else{
-        nuevoCarrito.push(
-          {id: idProductoAAgregar, nombre: nombre, cantidad: 1}
-        )
-      }
-      cambiarCarrito(nuevoCarrito);
-    }
-  }
 // El reducer es una funcion que edita el estado global
   const store = createStore(reducer);
   
