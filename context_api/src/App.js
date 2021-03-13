@@ -7,7 +7,7 @@ import AcercaDe from './componentes/AcercaDe';
 import Inicio from './componentes/Inicio';
 import Post from './componentes/Post';
 import Error404 from './componentes/Error404';
-import { ContextoTema } from './contextos/contextoTema';
+import {ContextoTema} from './contextos/contextoTema';
 
 
 const App = () => {
@@ -37,8 +37,8 @@ const ContenedorPrincipal = styled.div`
   max-width: 700px;
 `;
 const Main = styled.main`
-  font-size: ${props => props.tema ? props.tema.fuente + 'px' : '16px'}
-  text-align: ${props => props.tema ? props.tema.alineado + 'px' : '16px'}
+  font-size: ${props => props.tema ? props.tema.fuente + 'px' : '16px'};
+  text-align: ${props => props.tema ? props.tema.alineado : 'right'};
   background: #fff;
   padding: 40px;
   border-radius: 10px;
