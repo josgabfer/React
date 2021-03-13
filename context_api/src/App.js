@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styled from 'styled-components';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Header from './componentes/Header';
@@ -7,13 +7,16 @@ import AcercaDe from './componentes/AcercaDe';
 import Inicio from './componentes/Inicio';
 import Post from './componentes/Post';
 import Error404 from './componentes/Error404';
+import { ContextoTema } from './contextos/contextoTema';
+
 
 const App = () => {
+  const {tema} = useContext(ContextoTema);
   return (
     <BrowserRouter>
       <ContenedorPrincipal>
         <Header/>
-        <Main>
+        <Main tema={tema}>
           {/* Switch redirects to the last page as default */}
           <Switch>
             <Route path="/" exact={true} component={Inicio}/>
@@ -34,6 +37,8 @@ const ContenedorPrincipal = styled.div`
   max-width: 700px;
 `;
 const Main = styled.main`
+  font-size: ${props => props.tema ? props.tema.fuente + 'px' : '16px'}
+  text-align: ${props => props.tema ? props.tema.alineado + 'px' : '16px'}
   background: #fff;
   padding: 40px;
   border-radius: 10px;

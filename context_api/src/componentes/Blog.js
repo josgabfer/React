@@ -1,6 +1,8 @@
 import React from 'react';
 import posts from './../data/posts';
 import {Link} from 'react-router-dom';
+import { ContextoTema } from '../contextos/contextoTema';
+import Controles from './Controles';
 
 const Blog = () => {
     return (
@@ -15,6 +17,7 @@ const Blog = () => {
                     </li>)
                 })}
             </ul>
+            <Controles/>
         </div>
     );
 };
