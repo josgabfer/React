@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect,useState} from 'react';
 import styled from 'styled-components';
 import db from './../firebase/firebaseConfig';
 import Contacto from './Contacto';
@@ -12,6 +12,14 @@ const [contactos, cambiarContactos] = useState([
     nombre:'Arturo',
     correo:'Correo2@mail.com'}
 ]);
+
+useEffect(()=> {
+    db.collection('usuarios').onSnapshot((snapshot)=>{
+        cambiarContactos(snapshot.docs.map((documento)=>{
+            return {...documento.data(), id: documento.id}
+        }));
+    });
+}, []);
 
     return (
         contactos.length > 0 &&  
