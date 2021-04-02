@@ -1,8 +1,12 @@
 import React from 'react';
+import {Header, Titulo, ContenedorHeader, ContenedorBotones} from './../elementos/Header';
+
+
 const EditarGasto = () => {
     return (  
-        <h1>Eitar Gasto</h1>
-    );
+        <>
+
+      </>    );
 }
  
 export default EditarGasto;
