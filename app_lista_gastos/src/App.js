@@ -5,7 +5,7 @@ import Boton from './elementos/Boton';
 
 function App() {
   return (
-    <>
+    <>,
       <Helmet>
         <title>Agregar Gasto</title>
       </Helmet>
@@ -18,7 +18,7 @@ function App() {
           <ContenedorBotones>
             <Boton to='/categorias'>Categorias</Boton>
             <Boton to='/lista'>Lista de gastos</Boton>
-            <Boton>X</Boton>
+            <Boton to="/" >X</Boton>
           </ContenedorBotones>
         </ContenedorHeader>
       </Header>
