@@ -13,6 +13,8 @@ import InicioSesion from './componentes/InicioSesion';
 import {Helmet} from 'react-helmet';
 import favicon from './imagenes/logo.png';
 import Fondo from './elementos/Fondo';
+import {AuthProvider} from './contextos/AuthContext';
+
 
 WebFont.load({
   google: {
@@ -26,6 +28,8 @@ const Index = () => {
     <Helmet>
       <link rel="shortcut icon" href={favicon} type="image/x-icon"/>
     </Helmet>
+
+    <AuthProvider>
       <BrowserRouter>
           <Contenedor>
             <Switch>
@@ -38,6 +42,7 @@ const Index = () => {
             </Switch>
           </Contenedor>
       </BrowserRouter>
+    </AuthProvider>
       <Fondo/>
       </>
    );
