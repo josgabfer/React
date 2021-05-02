@@ -5,7 +5,10 @@ import Boton from './../elementos/Boton';
 import {Formulario, Input, ContenedorBoton} from './../elementos/ElementosDeFormulario';
 import {ReactComponent as SvgLogin} from './../imagenes/login.svg';
 import styled from 'styled-components';
-import useHistory from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
+import {auth} from './../firebase/firebaseConfig';
+import Alerta from '../elementos/Alerta';
+
 
 const Svg = styled(SvgLogin)`
   width: 100%;
@@ -57,22 +60,19 @@ const InicioSesion = () => {
     }
 
     try{
-			await auth.createUserWithEmailAndPassword(correo, password);
+			await auth.signInWithEmailAndPassword(correo, password);
       history.push('/');
     }catch(error){
       cambiarEstadoAlerta(true);
 
-
       let mensaje;
+      console.log(error.code);
       switch(error.code){
-        case 'auth/invalid-password':
-          mensaje = 'La contraseña debe de ser de al menos 6 caracteres';
+        case 'auth/wrong-password':
+          mensaje = 'La contraseña no es correcta';
           break;
-        case 'auth/email-already-exists':
-          mensaje = 'El correo proporcionado ya esta en uso';
-          break;
-        case 'auth/invalid-email':
-          mensaje = 'El correo electronico no es valido';
+        case 'auth/user-not-found':
+          mensaje = 'No se encontro ninguna cuenta con este correo electronico';
           break;
         default:
           mensaje='Hubo un error al intentar crear la cuenta';
@@ -113,6 +113,12 @@ const InicioSesion = () => {
           <Boton as="button" primario type="submit">Iniciar Sesion</Boton>
         </ContenedorBoton>
       </Formulario>
+      <Alerta 
+        tipo={alerta.tipo}
+        mensaje={alerta.mensaje}
+        estadoAlerta={estadoAlerta}
+        cambiarEstadoAlerta={cambiarEstadoAlerta}
+      />
 
     </>
      );
