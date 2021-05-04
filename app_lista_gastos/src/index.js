@@ -14,6 +14,7 @@ import {Helmet} from 'react-helmet';
 import favicon from './imagenes/logo.png';
 import Fondo from './elementos/Fondo';
 import {AuthProvider} from './contextos/AuthContext';
+import RutaPrivada from './componentes/RutaPrivada';
 
 
 WebFont.load({
@@ -35,10 +36,12 @@ const Index = () => {
             <Switch>
               <Route path="/iniciar-sesion" component={InicioSesion}/>
               <Route path="/crear-cuenta" component={RegistroUsuarios}/>
-              <Route path="/categorias" component={GastosPorCategoria}/>
-              <Route path="/lista" component={ListaDeGastos}/>
-              <Route path="/editar/:id" component={EditarGasto}/>
-              <Route path="/" component={App}/>
+
+              <RutaPrivada path="/categorias"><GastosPorCategoria/></RutaPrivada>
+              <RutaPrivada path="/lista"><ListaDeGastos/></RutaPrivada>
+              <RutaPrivada path="/editar/:id"><EditarGasto/></RutaPrivada>
+              <RutaPrivada path="/"><App/></RutaPrivada>
+
             </Switch>
           </Contenedor>
       </BrowserRouter>

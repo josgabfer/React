@@ -7,7 +7,15 @@
 :root {
   font-size: 16px;
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+:root {
+  font-size: 16px;
+}
 body {
   background: #F9F9F9;
   min-height: 100vh;
