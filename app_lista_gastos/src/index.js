@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import WebFont from 'webfontloader';
 import Contenedor from './elementos/Contenedor';
-import {BrowserRouter, Route, Switch, Swtich}from 'react-router-dom';
+import {BrowserRouter, Route, Switch}from 'react-router-dom';
 import EditarGasto from './componentes/EditarGasto';
 import GastosPorCategoria from './componentes/GastosPorCategoria';
 import ListaDeGastos from './componentes/ListaDeGastos';

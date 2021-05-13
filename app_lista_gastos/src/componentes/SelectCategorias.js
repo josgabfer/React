@@ -90,7 +90,7 @@ const SelectCategorias = ({categoria, cambiarCategoria}) => {
 									data-valor={categoria.id}
 									onClick={handleClick}
 								>
-									<IconoCategoria nombre={categoria.id} />
+									<IconoCategoria id={categoria.id} />
 									{categoria.texto}
 								</Opcion>
 					})}
