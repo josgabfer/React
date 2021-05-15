@@ -12,12 +12,11 @@ import {Link} from 'react-router-dom';
 import Boton from './../elementos/Boton';
 import {format, fromUnixTime} from 'date-fns';
 import {es} from 'date-fns/locale';
+import borrarGasto from './../firebase/borrarGasto';
 
 import {
   Lista,
   ElementoLista,
-  ListaDeCategorias,
-  ElementoListaCategorias,
   Categoria,
   Descripcion,
   Valor,
@@ -32,7 +31,7 @@ import {
 
 
 const ListaDeGastos = () => {
-const [gastos] = useObtenerGastos();
+const [gastos, obtenerMasGastos, hayMasPorCargar] = useObtenerGastos();
 
 const formatearFecha = (fecha) =>{
   return format(fromUnixTime(fecha), "dd 'de' MMMM 'de' yyyy", {locale: es});
@@ -73,7 +72,7 @@ const fechaEsIgual = (gastos, index, gasto) =>{
                   <BotonAccion as={Link} to={`/editar/${gasto.id}`}>
                     <IconoEditar />
                   </BotonAccion>
-                  <BotonAccion >
+                  <BotonAccion onClick={() => borrarGasto(gasto.id)}>
                     <IconoBorrar />
                   </BotonAccion>
                 </ContenedorBotones>
@@ -81,9 +80,11 @@ const fechaEsIgual = (gastos, index, gasto) =>{
             </div>
           );
         })}
-        <ContenedorBotonCentral>
-          <BotonCargarMas>Cargar Mas</BotonCargarMas>
-        </ContenedorBotonCentral>
+        {hayMasPorCargar &&       
+          <ContenedorBotonCentral>
+            <BotonCargarMas onClick={()=> obtenerMasGastos()}>Cargar Mas</BotonCargarMas>
+          </ContenedorBotonCentral>
+        }
       </Lista>
       {gastos.length === 0 && 
         <ContenedorSubtitulo>
