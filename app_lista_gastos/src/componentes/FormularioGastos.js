@@ -10,6 +10,7 @@ import {useAuth} from './../contextos/AuthContext';
 import Alerta from './../elementos/Alerta';
 import fromUnixTime from 'date-fns/fromUnixTime';
 import {useHistory} from 'react-router-dom'
+import editarGasto from './../firebase/editarGasto';
 
 const FormularioGasto = ({gasto}) => {
     const [inputDescripcion, cambiarInputDescripcion] = useState('');
@@ -35,7 +36,7 @@ const FormularioGasto = ({gasto}) => {
                 history.push('/lista')
             }
         }
-    },[gasto, usuario]);
+    },[gasto, usuario, history]);
 
 
     const handleChange = (e) =>{
@@ -53,30 +54,42 @@ const FormularioGasto = ({gasto}) => {
         // Comprobamos que haya una descripcion y valor
         if(inputDescripcion !== '' && inputCantidad !== '' ){
             if(cantidad){
-                AgregarGasto({
-                    categoria: categoria, 
-                    descripcion: inputDescripcion, 
-                    cantidad: cantidad, 
-                    fecha: getUnixTime(fecha),
-                    uidUsuario: usuario.uid
-                })
-                .then(()=>{
-                    cambiarCategoria('hogar');
-                    cambiarInputDescripcion('');
-                    cambiarInputCantidad('');
-                    cambiarFecha(new Date());
-                    cambiarEstadoAlerta(true);
-                    cambiarAlerta({tipo: 'exito', mensaje: 'El gasto fue agregado'});
-                }).catch((error=>{
-                    cambiarEstadoAlerta(true);
-                    cambiarAlerta({tipo: 'exito', mensaje: 'Hubo un problema al intentar agregar la informacion'});
-                })) 
-
+                if(gasto){
+                    editarGasto({
+                        id: gasto.id,
+                        categoria: categoria, 
+                        descripcion: inputDescripcion, 
+                        cantidad: cantidad, 
+                        fecha: getUnixTime(fecha)
+                    }).then(()=> {
+                        history.push('lista');
+                    }).catch((error)=>{
+                        console.log(error)
+                    })
+                }else{
+                    AgregarGasto({
+                        categoria: categoria, 
+                        descripcion: inputDescripcion, 
+                        cantidad: cantidad, 
+                        fecha: getUnixTime(fecha),
+                        uidUsuario: usuario.uid
+                    })
+                    .then(()=>{
+                        cambiarCategoria('hogar');
+                        cambiarInputDescripcion('');
+                        cambiarInputCantidad('');
+                        cambiarFecha(new Date());
+                        cambiarEstadoAlerta(true);
+                        cambiarAlerta({tipo: 'exito', mensaje: 'El gasto fue agregado'});
+                    }).catch((error)=>{
+                        cambiarEstadoAlerta(true);
+                        cambiarAlerta({tipo: 'exito', mensaje: 'Hubo un problema al intentar agregar la informacion'});
+                    })
+                }
             }else{
                 cambiarEstadoAlerta(true);
                 cambiarAlerta({tipo: 'error', mensaje: 'El valor que ingresaste no es correcto'});
             }
-
         }else{
             cambiarEstadoAlerta(true);
             cambiarAlerta({tipo: 'error', mensaje: 'Por favor rellenar todos los campos'});
@@ -112,7 +125,8 @@ const FormularioGasto = ({gasto}) => {
                 />
             </div>
             <ContenedorBoton>
-                <Boton as="button" primario conIcono type="submit">Agregar Gasto <IconoPlus/></Boton>
+                <Boton as="button" primario conIcono type="submit">
+                    {gasto ? 'Editar Gasto' : 'Agregar Gasto'}<IconoPlus/></Boton>
             </ContenedorBoton>
             <Alerta
                 tipo={alerta.tipo}
