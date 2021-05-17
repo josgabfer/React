@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {ContenedorFiltros, Formulario, Input, InputGrande, ContenedorBoton} from './../elementos/ElementosDeFormulario';
 import Boton from './../elementos/Boton';
 import {ReactComponent as IconoPlus} from './../imagenes/plus.svg' ;
@@ -8,15 +8,35 @@ import AgregarGasto from './../firebase/AgregarGasto';
 import getUnixTime from 'date-fns/getUnixTime';
 import {useAuth} from './../contextos/AuthContext';
 import Alerta from './../elementos/Alerta';
+import fromUnixTime from 'date-fns/fromUnixTime';
+import {useHistory} from 'react-router-dom'
 
-const FormularioGasto = () => {
+const FormularioGasto = ({gasto}) => {
     const [inputDescripcion, cambiarInputDescripcion] = useState('');
     const [inputCantidad, cambiarInputCantidad] = useState('');
     const [categoria, cambiarCategoria] = useState('hogar');
     const [fecha, cambiarFecha] = useState(new Date());
     const {usuario} = useAuth();
+    const history = useHistory();
     const [estadoAlerta, cambiarEstadoAlerta] = useState(false);
     const [alerta, cambiarAlerta] = useState({});
+
+    useEffect(()=>{
+        // Comprobamos si ya hay algun gasto
+        // De ser asi establecemos todo el stado con los valores del gasto
+        if(gasto){
+            // Comprobar si el usuario que desea editar el gasto, es el que esta logeado
+            if(gasto.data().uidUsuario === usuario.uid){
+                cambiarCategoria(gasto.data().categoria);
+                cambiarFecha(fromUnixTime(gasto.data().fecha));
+                cambiarInputDescripcion(gasto.data().descripcion);
+                cambiarInputCantidad(gasto.data().cantidad);
+            }else{
+                history.push('/lista')
+            }
+        }
+    },[gasto, usuario]);
+
 
     const handleChange = (e) =>{
         if(e.target.name === 'descripcion'){
