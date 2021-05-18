@@ -1,16 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import {ContenedorFiltros, Formulario, Input, InputGrande, ContenedorBoton} from './../elementos/ElementosDeFormulario';
-import Boton from './../elementos/Boton';
+import {ContenedorFiltros, Formulario, Input, InputGrande, ContenedorBoton} from '../elementos/ElementosDeFormulario';
+import Boton from '../elementos/Boton';
 import {ReactComponent as IconoPlus} from './../imagenes/plus.svg' ;
 import SelectCategorias from './SelectCategorias';
 import DatePicker from './DatePicker';
-import AgregarGasto from './../firebase/AgregarGasto';
+import AgregarGasto from '../firebase/AgregarGasto';
 import getUnixTime from 'date-fns/getUnixTime';
-import {useAuth} from './../contextos/AuthContext';
-import Alerta from './../elementos/Alerta';
+import {useAuth} from '../contextos/AuthContext';
+import Alerta from '../elementos/Alerta';
 import fromUnixTime from 'date-fns/fromUnixTime';
 import {useHistory} from 'react-router-dom'
-import editarGasto from './../firebase/editarGasto';
+import editarGasto from '../firebase/editarGasto';
 
 const FormularioGasto = ({gasto}) => {
     const [inputDescripcion, cambiarInputDescripcion] = useState('');
@@ -33,7 +33,7 @@ const FormularioGasto = ({gasto}) => {
                 cambiarInputDescripcion(gasto.data().descripcion);
                 cambiarInputCantidad(gasto.data().cantidad);
             }else{
-                history.push('/lista')
+                history.push('/lista');
             }
         }
     },[gasto, usuario, history]);
@@ -62,7 +62,7 @@ const FormularioGasto = ({gasto}) => {
                         cantidad: cantidad, 
                         fecha: getUnixTime(fecha)
                     }).then(()=> {
-                        history.push('lista');
+                        history.push('/lista');
                     }).catch((error)=>{
                         console.log(error)
                     })
@@ -126,7 +126,8 @@ const FormularioGasto = ({gasto}) => {
             </div>
             <ContenedorBoton>
                 <Boton as="button" primario conIcono type="submit">
-                    {gasto ? 'Editar Gasto' : 'Agregar Gasto'}<IconoPlus/></Boton>
+                    {gasto ? 'Editar Gasto' : 'Agregar Gasto'}<IconoPlus/>
+                </Boton>
             </ContenedorBoton>
             <Alerta
                 tipo={alerta.tipo}
