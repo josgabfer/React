@@ -3,13 +3,13 @@ import {Helmet} from 'react-helmet';
 import {Header, Titulo} from './../elementos/Header';
 import BtnRegresar from './../elementos/BtnRegresar';
 import BarraTotalGastado from './BarraTotalGastado';
-import useObtenerGastosDelMes from './../hooks/useObtenerGastosDelMes';
-
+import useObtenerGastosDelMesPorCategoria from './../hooks/useObtenerGastosDelMesPorCategoria';
 
 
 
 const GastosPorCategoria = () => {
-    useObtenerGastosDelMes();
+    const gastos = useObtenerGastosDelMesPorCategoria();
+
     return ( 
         <>
             <Helmet>

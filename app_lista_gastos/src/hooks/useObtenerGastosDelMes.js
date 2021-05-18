@@ -12,7 +12,8 @@ const useObtenerGastosDelMes = () => {
         const finDeMes = getUnixTime(endOfMonth(new Date()));
 
         if(usuario){
-            db.collection('gastos')
+            
+            const unsusbcribe = db.collection('gastos')
             .orderBy('fecha', 'desc')
             .where('fecha', '>=', inicioDeMes)
             .where('fecha', '<=', finDeMes)
@@ -22,12 +23,13 @@ const useObtenerGastosDelMes = () => {
                     return{...documento.data(), id:documento.id}
                 }))
             })
+            return unsusbcribe;
         }
 
     }, [usuario])
     
 
-    return[gastos];
+    return gastos;
 }
  
 export default useObtenerGastosDelMes;

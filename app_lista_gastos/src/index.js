@@ -15,6 +15,7 @@ import favicon from './imagenes/logo.png';
 import Fondo from './elementos/Fondo';
 import {AuthProvider} from './contextos/AuthContext';
 import RutaPrivada from './componentes/RutaPrivada';
+import {TotalGastadoProvider} from './contextos/TotalGastadoEnElMesContext'
 
 
 WebFont.load({
@@ -31,7 +32,8 @@ const Index = () => {
     </Helmet>
 
     <AuthProvider>
-      <BrowserRouter>
+      <TotalGastadoProvider>
+        <BrowserRouter>
           <Contenedor>
             <Switch>
               <Route path="/iniciar-sesion" component={InicioSesion}/>
@@ -44,7 +46,8 @@ const Index = () => {
 
             </Switch>
           </Contenedor>
-      </BrowserRouter>
+        </BrowserRouter>
+      </TotalGastadoProvider>
     </AuthProvider>
       <Fondo/>
       </>
